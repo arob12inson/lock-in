@@ -1,0 +1,20 @@
+.pomodoro_container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.pomodoro {
+    width: 620px;
+    height: 420px;
+    background-color: hsl(0, 0%, 70%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.timer {
+    font-size: 8em;
+}

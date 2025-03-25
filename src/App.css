@@ -9,13 +9,14 @@
 .pomodoro {
     width: 620px;
     height: 420px;
-    background-color: hsl(0, 0%, 70%);
+    background-color: hsla(0, 0%, 70%, 0.173);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     padding-top: 48px;
     padding-bottom: 48px;
+    border-radius: 12px;
 }
 
 .timer {
@@ -24,9 +25,9 @@
 }
 
 .play_button {
-    background-color: hsl(0, 0%, 20%);
+    background-color: hsl(0, 0%, 100%);
     border: none;
-    color: white;
+    color: hsl(0, 0%, 20%);
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
@@ -35,4 +36,5 @@
     margin: 4px 2px;
     cursor: pointer;
     font-size: 2em;
+    border-radius: 12px;
 }

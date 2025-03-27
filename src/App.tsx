@@ -1,16 +1,23 @@
-import { useState,  } from "react"
+import { useEffect, useState,  } from "react"
 import "./App.css"
 function App() {
 
   const [seconds, setSeconds] = useState(50*60);
   const [active, setActive] = useState(false);
  
-  if (active) {
-    setInterval(() => {
-        // Update the current time every 10ms.
-        setSeconds(seconds - 1); // TODO: this is kind of buggy
-    }, 1000);
-  }
+  useEffect(() => {
+    if (active) {
+      const timer = setInterval(() => {
+          // Update the current time every 10ms.
+          setSeconds(seconds - 1); 
+      }, 1000);
+
+      return () => {
+        clearInterval(timer);
+      }
+    }
+
+  }, [seconds, active])
   
   const getTime = (sec: number) => {
     const seconds = sec % 60;

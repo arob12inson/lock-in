@@ -46,8 +46,13 @@
 .timer_option {
     background-color: transparent;
     border: none;
-    padding: 0 6px;
+    padding: 6px;
     font-size: 1.2em;
     cursor: pointer;
     color: hsl(0, 0%, 100%);
+}
+
+.active {
+    background-color: hsl(0, 0%, 20%);
+    border-radius: 6px;
 }

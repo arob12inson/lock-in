@@ -2,19 +2,22 @@ import { useEffect, useState,  } from "react"
 import "./App.css"
 function App() {
 
-  const [seconds, setSeconds] = useState(50*60);
+  const [seconds, setSeconds] = useState(5);
   const [active, setActive] = useState(false);
  
   useEffect(() => {
     if (active) {
-      const timer = setInterval(() => {
-          // Update the current time every 10ms.
-          setSeconds(seconds - 1); 
-      }, 1000);
-
-      return () => {
-        clearInterval(timer);
+      if (seconds === 0) {
+        setActive(false);
+      } else {
+        const timer = setInterval(() => {
+            setSeconds(seconds - 1); 
+        }, 1000);
+        return () => {
+          clearInterval(timer);
+        }
       }
+
     }
 
   }, [seconds, active])
@@ -35,7 +38,7 @@ function App() {
           <button className="timer_option">Long Break</button>
         </div>
         <p className="timer">{getTime(seconds)}</p>
-        <button className="play_button" onClick={() => setActive(!active)}>Start</button>
+        <button className="play_button" onClick={() => setActive(!active)}>{!active ? "Start" : "Pause"}</button>
       </div>
     </div>
   )

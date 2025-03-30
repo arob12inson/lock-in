@@ -11,7 +11,9 @@ enum Session {
 const DeepWorkTime = 50*60;
 const ShortBreakTime = 10*60;
 const LongBreakTime = 15*60;
-const LockInTime = 5*60;
+const LockInTime = 5;
+
+const timerAudio = new Audio('/audio/timer-finish.mp3'); // path to your sound file
 
 function App() {
 
@@ -32,6 +34,7 @@ function App() {
         } else if ((sessionCount + 1) % 2 == 0) {
           changeSession(Session.ShortBreak)
         }
+        timerAudio.play()
       } else {
         const timer = setInterval(() => {
             setSeconds(seconds - 1); 

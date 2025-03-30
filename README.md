@@ -52,3 +52,6 @@ export default tseslint.config({
   },
 })
 ```
+
+---
+[Timer Audio](https://uppbeat.io/sfx/alarm-clock-ringing/5772/20476)

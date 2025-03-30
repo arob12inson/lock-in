@@ -18,11 +18,20 @@ function App() {
   const [seconds, setSeconds] = useState(LockInTime);
   const [active, setActive] = useState(false);
   const [session, setSession] = useState(Session.LockIn);
+  const [sessionCount, setSessionCount] = useState(0);
  
   useEffect(() => {
     if (active) {
       if (seconds === 0) {
         setActive(false);
+        setSessionCount(sessionCount+1)
+        if ((sessionCount + 1) % 2 == 1) {
+          changeSession(Session.DeepWork)
+        } else if ((sessionCount + 1) % 8 == 0) {
+          changeSession(Session.LongBreak)
+        } else if ((sessionCount + 1) % 2 == 0) {
+          changeSession(Session.ShortBreak)
+        }
       } else {
         const timer = setInterval(() => {
             setSeconds(seconds - 1); 
@@ -32,7 +41,7 @@ function App() {
         }
       }
     }
-  }, [seconds, active])
+  }, [seconds, active, sessionCount])
   
   const getTime = (sec: number) => {
     const seconds = sec % 60;

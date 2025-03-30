@@ -43,13 +43,16 @@
     display: flex;
 }
 
-.timer_option {
+.timer_option, .lock-in-banner {
     background-color: transparent;
     border: none;
     padding: 6px;
     font-size: 1.2em;
-    cursor: pointer;
     color: hsl(0, 0%, 100%);
+}
+
+.timer_option {
+    cursor: pointer;
 }
 
 .active {

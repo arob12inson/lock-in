@@ -18,7 +18,6 @@ function App() {
   const [seconds, setSeconds] = useState(LockInTime);
   const [active, setActive] = useState(false);
   const [session, setSession] = useState(Session.LockIn);
-  // const [numSessions, setNumSessions] = useState(0);
  
   useEffect(() => {
     if (active) {
@@ -63,11 +62,17 @@ function App() {
     <div className="pomodoro_container">
       <div className="pomodoro">
         {/* Idea: When it's lock in time, just say "LOCK IN" */}
-        <div className="timer_options">
-          <button className={`timer_option ${session === Session.DeepWork ? "active" : ""}`} onClick={() => changeSession(Session.DeepWork)}>Focus Time</button>
-          <button className={`timer_option ${session === Session.ShortBreak ? "active" : ""}`} onClick={() => changeSession(Session.ShortBreak)}>Short Break</button>
-          <button className={`timer_option ${session === Session.LongBreak ? "active" : ""}`} onClick={() => changeSession(Session.LongBreak)}>Long Break</button>
-        </div>
+        {session !== Session.LockIn ? 
+          <div className="timer_options">
+              <button className={`timer_option ${session === Session.DeepWork ? "active" : ""}`} onClick={() => changeSession(Session.DeepWork)}>Focus Time</button>
+              <button className={`timer_option ${session === Session.ShortBreak ? "active" : ""}`} onClick={() => changeSession(Session.ShortBreak)}>Short Break</button>
+              <button className={`timer_option ${session === Session.LongBreak ? "active" : ""}`} onClick={() => changeSession(Session.LongBreak)}>Long Break</button>
+          </div>
+        :
+          <div className="timer_options">
+            <p className="lock-in-banner">Lock in.</p>
+          </div>
+        }
         <p className="timer">{getTime(seconds)}</p>
         <button className="play_button" onClick={() => setActive(!active)}>{!active ? "Start" : "Pause"}</button>
       </div>

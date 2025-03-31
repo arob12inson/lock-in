@@ -1,4 +1,4 @@
-import { useEffect, useState,  } from "react"
+import { useEffect, useState, useRef } from "react"
 import "./App.css"
 
 enum Session {
@@ -15,8 +15,66 @@ const LockInTime = 5;
 
 const timerAudio = new Audio('/audio/timer-finish.mp3'); // path to your sound file
 
+const createBrownNoise = (audioContext: AudioContext) => {
+  const bufferSize = 4 * audioContext.sampleRate; // 4 seconds buffer for smoother looping
+  const noiseBuffer = audioContext.createBuffer(2, bufferSize, audioContext.sampleRate); // Stereo for better sound
+  
+  // Process for each channel (left and right)
+  for (let channel = 0; channel < 2; channel++) {
+    const output = noiseBuffer.getChannelData(channel);
+    
+    let lastOut = 0;
+    // Brown noise has a 6dB/octave rolloff
+    const brown_factor = 0.02; // Filter coefficient
+    
+    for (let i = 0; i < bufferSize; i++) {
+      // White noise (random between -1 and 1)
+      const white = Math.random() * 2 - 1;
+      
+      // Apply filter to create brown noise (first-order lowpass)
+      // This is a proper single-pole lowpass filter
+      output[i] = (lastOut + (brown_factor * white)) / (1.0 + brown_factor);
+      lastOut = output[i];
+      
+      // Normalize to prevent clipping
+      // Brown noise tends to wander, so we keep it in check
+      output[i] *= 0.6; // Scaling factor
+    }
+  }
+
+  // Create audio source
+  const noiseSource = audioContext.createBufferSource();
+  noiseSource.buffer = noiseBuffer;
+  noiseSource.loop = true;
+
+  // Create a filter to shape the sound more like true brown noise
+  const filter = audioContext.createBiquadFilter();
+  filter.type = "lowpass";
+  filter.frequency.value = 500; // Cut off higher frequencies
+  filter.Q.value = 0.7; // Quality factor
+
+  // Create gain node for volume control
+  const gainNode = audioContext.createGain();
+  gainNode.gain.value = 0.3; // More comfortable default volume
+
+  // Connect nodes: source -> filter -> gain -> output
+  noiseSource.connect(filter);
+  filter.connect(gainNode);
+  gainNode.connect(audioContext.destination);
+  
+  return { 
+    source: noiseSource, 
+    gain: gainNode, 
+    filter: filter 
+  };
+};
+
 function App() {
 
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const brownNoiseNodesRef = useRef<{ source: AudioBufferSourceNode, gain: GainNode, filter: BiquadFilterNode } | null>(null);
+
+  const [brownNoiseActive, setBrownNoiseActive] = useState(false);
   const [seconds, setSeconds] = useState(LockInTime);
   const [active, setActive] = useState(false);
   const [session, setSession] = useState(Session.LockIn);
@@ -70,6 +128,32 @@ function App() {
     }
   }
 
+  const toggleBrownNoise = () => {
+    if (!audioContextRef.current) {
+      // Create on first use, or resume if suspended (browser policy)
+      audioContextRef.current = new AudioContext();
+      if (audioContextRef.current.state === "suspended") {
+        audioContextRef.current.resume();
+      }
+    }
+
+    if (!brownNoiseActive) {
+      const noiseNodes = createBrownNoise(audioContextRef.current);
+      noiseNodes.source.start();
+      brownNoiseNodesRef.current = noiseNodes;
+      setBrownNoiseActive(true);
+    } else {
+      if (brownNoiseNodesRef.current) {
+        brownNoiseNodesRef.current.source.stop();
+        brownNoiseNodesRef.current.source.disconnect();
+        brownNoiseNodesRef.current.gain.disconnect();
+        brownNoiseNodesRef.current.filter.disconnect();
+        brownNoiseNodesRef.current = null;
+      }
+      setBrownNoiseActive(false);
+    }
+  };
+
   return (
     <div className="pomodoro_container">
       <div className="pomodoro">
@@ -88,6 +172,9 @@ function App() {
         <p className="timer">{getTime(seconds)}</p>
         <button className="play_button" onClick={() => setActive(!active)}>{!active ? "Start" : "Pause"}</button>
       </div>
+      <button className="brown_noise_button" onClick={toggleBrownNoise}>
+        {brownNoiseActive ? "Stop Brown Noise" : "Play Brown Noise"}
+      </button>
     </div>
   )
 }

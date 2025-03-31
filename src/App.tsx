@@ -157,7 +157,6 @@ function App() {
   return (
     <div className="pomodoro_container">
       <div className="pomodoro">
-        {/* Idea: When it's lock in time, just say "LOCK IN" */}
         {session !== Session.LockIn ? 
           <div className="timer_options">
               <button className={`timer_option ${session === Session.DeepWork ? "active" : ""}`} onClick={() => changeSession(Session.DeepWork)}>Focus Time</button>
@@ -173,7 +172,10 @@ function App() {
         <button className="play_button" onClick={() => setActive(!active)}>{!active ? "Start" : "Pause"}</button>
       </div>
       <button className="brown_noise_button" onClick={toggleBrownNoise}>
-        {brownNoiseActive ? "Stop Brown Noise" : "Play Brown Noise"}
+        {brownNoiseActive ? 
+        <img src="/pause.svg" alt="pause" /> : 
+        <img className="icon" src="/play.svg" alt="play" />
+        }
       </button>
     </div>
   )

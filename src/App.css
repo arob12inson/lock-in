@@ -59,3 +59,21 @@
     background-color: hsl(0, 0%, 20%);
     border-radius: 6px;
 }
+
+.brown_noise_button {
+    height: 120px;
+    width: 120px;
+    border-radius: 100%;
+    margin-top: 16px;
+    padding: 24px;
+    background-color: hsl(0, 0%, 100%);
+    border: none;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.icon {
+    margin-left: 12px;
+    padding: 8px;
+}

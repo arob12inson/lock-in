@@ -73,7 +73,7 @@
     cursor: pointer;
 }
 
-.icon {
-    margin-left: 12px;
+#play {
+    margin-left: 10px;
     padding: 8px;
 }

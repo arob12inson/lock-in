@@ -11,7 +11,7 @@ enum Session {
 const DeepWorkTime = 50*60;
 const ShortBreakTime = 10*60;
 const LongBreakTime = 15*60;
-const LockInTime = 5;
+const LockInTime = 5*60;
 
 const timerAudio = new Audio('/audio/timer-finish.mp3'); // path to your sound file
 
@@ -174,7 +174,7 @@ function App() {
       <button className="brown_noise_button" onClick={toggleBrownNoise}>
         {brownNoiseActive ? 
         <img src="/pause.svg" alt="pause" /> : 
-        <img className="icon" src="/play.svg" alt="play" />
+        <img id="play" src="/play.svg" alt="play" />
         }
       </button>
     </div>

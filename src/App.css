@@ -4,76 +4,116 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: hsl(225, 30%, 15%); 
 }
 
 .pomodoro {
-    width: 480px;
+    width: 400px; 
     height: auto;
-    background-color: hsla(0, 0%, 70%, 0.173);
+    background-color: hsla(220, 30%, 20%, 0.8); 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    padding-top: 24px;
-    padding-bottom: 24px;
-    border-radius: 12px;
+    padding: 40px 24px; 
+    border-radius: 24px; 
+    box-shadow: 0 10px 30px hsla(0, 0%, 0%, 0.3); 
 }
 
 .timer {
-    font-size: 8em;
-    margin: 12px;
+    font-size: 7em; 
+    margin: 20px 0; 
+    color: white; 
+    font-weight: 500;
 }
 
 .play_button {
-    background-color: hsl(0, 0%, 100%);
+    background: linear-gradient(90deg, hsl(170, 70%, 50%), hsl(90, 60%, 55%)); 
     border: none;
-    color: hsl(0, 0%, 20%);
-    padding: 12px 24px;
+    color: white; 
+    padding: 18px 60px; 
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
+    margin: 20px 0 4px 0; 
     cursor: pointer;
-    font-size: 2em;
-    border-radius: 12px;
+    font-size: 1.8em; 
+    font-weight: 500;
+    border-radius: 30px; 
+    transition: transform 0.2s ease, box-shadow 0.2s ease; 
+    box-shadow: 0 4px 15px hsla(140, 60%, 50%, 0.3); 
 }
+
+.play_button:hover {
+    transform: translateY(-2px); 
+    box-shadow: 0 6px 20px hsla(140, 60%, 50%, 0.4); 
+}
+
 
 .timer_options {
     display: flex;
+    margin-bottom: 10px; 
 }
 
 .timer_option, .lock-in-banner {
     background-color: transparent;
     border: none;
-    padding: 6px;
-    font-size: 1.2em;
-    color: hsl(0, 0%, 100%);
+    padding: 8px 12px; 
+    font-size: 1.1em; 
+    color: hsl(210, 15%, 75%); 
+    font-weight: 500;
+    transition: color 0.2s ease, background-color 0.2s ease; 
 }
 
 .timer_option {
     cursor: pointer;
 }
 
+.timer_option:hover {
+    color: white; 
+}
+
+.lock-in-banner {
+    font-size: 1.5em; 
+    color: white; 
+    font-weight: 600;
+}
+
+
 .active {
-    background-color: hsl(0, 0%, 20%);
+    background-color: hsla(210, 15%, 85%, 0.1); 
+    color: white; 
     border-radius: 6px;
 }
 
 .brown_noise_button {
-    height: 120px;
-    width: 120px;
-    border-radius: 100%;
-    margin-top: 16px;
-    padding: 24px;
-    background-color: hsl(0, 0%, 100%);
+    height: 60px; 
+    width: 60px; 
+    border-radius: 50%; 
+    margin-top: 30px; 
+    padding: 12px; 
+    background-color: hsl(30, 30%, 70%); 
     border: none;
     display: flex;
     justify-content: center;
+    align-items: center; 
     cursor: pointer;
+    box-shadow: 0 4px 10px hsla(0, 0%, 0%, 0.2); 
+    transition: transform 0.2s ease, box-shadow 0.2s ease; 
+}
+
+.brown_noise_button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px hsla(0, 0%, 0%, 0.3);
+}
+
+.brown_noise_button img {
+    height: 24px; 
+    width: 24px; 
+    display: block; 
 }
 
 #play {
-    margin-left: 10px;
-    padding: 8px;
+    margin-left: 3px;
+    padding: 0;
 }

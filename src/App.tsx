@@ -104,6 +104,27 @@ function App() {
     }
   }, [seconds, active, sessionCount])
   
+  // New useEffect for visibility change and window blur
+  useEffect(() => {
+    const handleFocusLoss = () => {
+      // Reset timer if current session is LockIn
+      if (session === Session.LockIn) {
+        setSeconds(LockInTime); // Reset to initial lock-in time
+        setActive(false); // Stop the timer
+      }
+    };
+
+    // Add event listeners when component mounts or session changes
+    document.addEventListener("visibilitychange", handleFocusLoss);
+    window.addEventListener("blur", handleFocusLoss);
+
+    // Cleanup function: remove event listeners when component unmounts or session changes
+    return () => {
+      document.removeEventListener("visibilitychange", handleFocusLoss);
+      window.removeEventListener("blur", handleFocusLoss);
+    };
+  }, [session]); // Re-run effect if session changes
+
   const getTime = (sec: number) => {
     const seconds = sec % 60;
     const minutes = Math.floor(sec / 60);

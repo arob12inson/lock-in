@@ -55,3 +55,10 @@ export default tseslint.config({
 
 ---
 [Timer Audio](https://uppbeat.io/sfx/alarm-clock-ringing/5772/20476)
+
+## TODO
+- Make the brown noise volume button bigger
+- add pink & white noise buttons
+- Add ads
+- better Icon & styling for play button
+- Add an favicon

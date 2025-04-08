@@ -55,6 +55,8 @@ export default tseslint.config({
 
 ---
 [Timer Audio](https://uppbeat.io/sfx/alarm-clock-ringing/5772/20476)
+[Old Radio Button Click (Start)](https://pixabay.com/sound-effects/search/button-click/)
+[Button by Sound Reality (Pause)](https://pixabay.com/sound-effects/search/button-click/)
 
 ## TODO
 - Make the brown noise volume button bigger
@@ -62,3 +64,7 @@ export default tseslint.config({
 - Add ads
 - better Icon & styling for play button
 - Add an favicon
+- Add timer duration as the title/tab bar
+- fix workarounds:
+  - watching youtube video in the background: screen width
+  - picture in picture: TBD

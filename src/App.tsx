@@ -14,6 +14,11 @@ const LongBreakTime = 15*60;
 const LockInTime = 5*60;
 
 const timerAudio = new Audio('/audio/timer-finish.mp3'); // path to your sound file
+const timerStartAudio = new Audio('/audio/button-start.mp3'); // path to your sound file
+const timerPauseAudio = new Audio('/audio/button-pause.mp3'); // path to your sound file
+
+timerStartAudio.volume = 0.25;
+timerPauseAudio.volume = 0.9;
 
 const createBrownNoise = (audioContext: AudioContext) => {
   const bufferSize = 4 * audioContext.sampleRate; // 4 seconds buffer for smoother looping
@@ -175,6 +180,19 @@ function App() {
     }
   };
 
+  const timerButtonClick = () => {
+    setActive(currentActive => {
+        if (!currentActive) {
+            timerStartAudio.currentTime = 0;
+            timerStartAudio.play();
+        } else {
+            timerPauseAudio.currentTime = 0;
+            timerPauseAudio.play();
+        }
+        return !currentActive;
+    });
+  }
+
   return (
     <div className="pomodoro_container">
       <div className="pomodoro">
@@ -190,7 +208,7 @@ function App() {
           </div>
         }
         <p className="timer">{getTime(seconds)}</p>
-        <button className="play_button" onClick={() => setActive(!active)}>{!active ? "Start" : "Pause"}</button>
+        <button className="play_button" onClick={timerButtonClick}>{!active ? "Start" : "Pause"}</button>
       </div>
       <button className="brown_noise_button" onClick={toggleBrownNoise}>
         {brownNoiseActive ? 

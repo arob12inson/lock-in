@@ -137,6 +137,15 @@ function App() {
     return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   }
 
+  // Update document title with current time
+  useEffect(() => {
+    if (session === Session.LockIn) {
+      document.title = "Lock in.";
+    } else {
+      document.title = `${getTime(seconds)} - Lock In.`;
+    }
+  }, [seconds, session]);
+
   const changeSession = (sesh: Session) => {
     setSession(sesh);
     setActive(false);
